@@ -1,0 +1,107 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Progress</h1>
+     <!-- Active Table -->
+     <button type="button" class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#basicModal">
+      Add Progress
+    </button>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Progress</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        
+        <th scope="col">PROGRESS STATUS</th>
+        
+       
+      </tr>
+    </thead>
+    <tbody>
+      {% for pr in progress %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+       
+        <td>{{pr.progress_status}}</td>
+        
+
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+ <!-- Basic Modal -->
+
+
+
+
+
+
+
+
+
+        <form method="POST">
+          <div class="modal fade" id="basicModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Progress</h5>
+      
+                </div>
+                {% csrf_token %} 
+                <div class="modal-body">
+                 
+                   
+                    <div id="FormsPP">
+                      
+                      <label for="{{progress_status.id_for_label}}">Progress Status</label><br>{{progress_status}}<br>
+                    </div><br><br><br>
+                   
+      
+                   
+                  
+             
+              
+              
+                
+                <div class="modal-footer">
+                  <button value="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Basic Modal-->
+        </form>
+      
+      {%endblock main_content%}
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

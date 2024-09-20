@@ -1,0 +1,43 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Student Responses</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'teacher_dashboard' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Student Responses</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">STUDENT</th>
+        <th scope="col">QUIZ</th>
+        <th scope="col">QUESTION</th>
+        <th scope="col">RESPONSE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for response in responses %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{response.user}}</td>
+        <td>{{response.quiz.title}}</td>
+        <td>{{response.question.statement}}</td>
+        <td>{{response.response}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%endblock main_content%}

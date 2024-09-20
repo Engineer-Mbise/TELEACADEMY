@@ -1,0 +1,80 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+
+<!-- End Search Bar -->
+{%block main_content%}
+<script>
+  setTimeout(function () {
+    messageID = document.getElementById("message");
+    if (messageID) {
+      messageID.style.display = "none";
+    }
+  }, 3000);
+</script>
+<div class="pagetitle">
+  <h1>All Courses</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">All Courses</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <table class="table">
+    {%if messages%}<br />
+    {%for msg in messages%}
+    <div
+      class="alert alert-warning alert-dismissible fade show"
+      role="alert"
+      id="message"
+    >
+      <strong>Sorry!</strong> {{msg}}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {%endfor%}<br />
+    {%endif%}<br />
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">COURSE NAME</th>
+        <th scope="col">LEVEL</th>
+        <th scope="col">DESCRIPTION</th>
+
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in data %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{course.name}}</td>
+        <td>{{course.level}}</td>
+        <td>{{course.description}}</td>
+
+        <td>
+          <a
+            href="{% url 'selected_courses' course.id %}"
+            class="btn btn-sm bg-primary text-light"
+            >Take Course</a
+          >
+        </td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%if zero_results%}
+<h1 style="text-align: center">No Results Found</h1>
+{%endif%} <br />
+{%endblock main_content%}

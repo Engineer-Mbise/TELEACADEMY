@@ -1,0 +1,104 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Questions</h1>
+    <!-- Basic Modal -->
+    <button type="button" class="btn btn-primary text-light float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+      Add Question
+     </button>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Questions</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">QUIZ</th>
+        <th scope="col">QUESTION STATEMENT</th>
+        <th scope="col">OPTION1</th>
+        <th scope="col">OPTION2</th>
+        <th scope="col">OPTION3</th>
+        <th scope="col">OPTION4</th>
+        <th scope="col">CORRECT ANSWER</th>
+        <th scope="col">TIME TO ANSWER IN SECONDS</th>
+        <th scope="col">ACTION</th>
+    
+        
+        
+      
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in questions %}
+      <tr>
+
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{question.quiz.title}}</td>
+        <td> {{question.statement}}</td>
+        <td>{{question.option1}}</td>
+        <td>{{question.option2}}</td>
+        <td>{{question.option3}}</td>
+        <td>{{question.option4}}</td>
+        <td>{{question.correct_answer}}</td>
+        <td>{{question.time_to_answer_in_seconds}}</td>
+        <td><a href="{% url 'delete_question' question.id %}" class="btn btn-sm text-light btn-danger">Delete Question</a></td>
+        
+    
+        
+        
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Question</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body"> 
+              <label for="{{quiz.id_for_label}}">Quiz Title:</label><br>{{quiz}}<br>
+              <label for="{{statement.id_for_label}}">Question Statement:</label><br>{{statement}}<br>
+              <label for="{{option1.id_for_label}}">Option1:</label><br>{{option1}}<br>
+              <label for="{{option2.id_for_label}}">Option2:</label><br>{{option2}}<br>
+              <label for="{{option3.id_for_label}}">Option3:</label><br>{{option3}}<br>
+              <label for="{{option4.id_for_label}}">Option4:</label><br>{{option4}}<br>
+              <label for="{{correct_answer.id_for_label}}">Correct Answer:</label><br>{{correct_answer}}<br>
+              <label for="{{time_to_answer_in_seconds.id_for_label}}">Time to answer in seconds:</label><br>{{time_to_answer_in_seconds}}<br>
+
+             
+
+             
+            
+       
+        
+        
+          
+          <div class="modal-footer">
+            <button value="submit" class="btn btn-primary text-light">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+{%endblock main_content%}

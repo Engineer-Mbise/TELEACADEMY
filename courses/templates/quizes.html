@@ -1,0 +1,49 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Quizes</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Quizes</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">QUIZ TITLE</th>
+        <th scope="col">QUIZ DESCRIPTION</th>
+        <th scope="col">COURSE</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for quiz in quizes %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{quiz.title}}</td>
+        <td>{{quiz.description}}</td>
+        <td>{{quiz.course}}</td>
+        <td>
+          <a
+            href="{% url 'quiz_instructions' quiz.id %}"
+            class="btn btn-sm bg-primary text-light"
+            >Take Quiz</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%endblock main_content%}

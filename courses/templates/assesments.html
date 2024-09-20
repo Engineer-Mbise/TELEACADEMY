@@ -1,0 +1,109 @@
+{%extends 'configuration/base.html'%}
+
+{%block main_content%}
+<div class="pagetitle">
+   <!-- Basic Modal -->
+   <button type="button" class="btn btn-primary text-light float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+    Add Quiz
+  </button>
+  <h1>Quizes</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Quizes</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">TITLE</th>
+        <th scope="col">DESCRIPTION</th>
+        <th scope="col">COURSE</th>
+        <th scope="col">ACTION</th>
+
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for quiz in quizes %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{quiz.title}}</td>
+        <td>{{quiz.description}}</td>
+        <td>{{quiz.course.name}}</td>
+       
+        <td><a href="{%url 'add_question' quiz.id %}" class="btn btn-sm btn-primary text-light">Questions</a>
+        <a href="{%url 'delete_quiz' quiz.id %}" class="btn btn-sm text-light btn-danger">Delete Quiz</a></td>
+      </tr>
+      {% endfor %}
+    
+
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+ 
+  </div>
+
+  </div>
+
+
+
+  <form method="POST">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Quiz</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body">
+           
+             
+              <div id="Forms">
+                <label for="{{title.id_for_label}}">Title</label><br>{{title}}<br>
+              </div><br><br><br>
+              <div id="FormsP">
+                <label for="{{description.id_for_label}}">Description</label><br>{{description}}<br>
+              </div><br><br><br>
+
+
+              <div id="FormsPL">
+                <label for="{{course.id_for_label}}">Course</label><br>{{course}}<br>
+              </div><br><br><br>
+             
+
+             
+     
+          <div class="modal-footer">
+            <button value="submit" class="btn bg-primary text-light">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+  
+{%endblock main_content%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

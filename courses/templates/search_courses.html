@@ -1,0 +1,107 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Courses</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Courses</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">NAME</th>
+        <th scope="col">DESCRIPTION</th>
+        <th scope="col">LEVEL</th>
+        <th scope="col">ACTION</th>
+
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in searched_courses %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{course.name}}</td>
+        <td>{{course.description}}</td>
+        <td>{{course.level}}</td>
+       
+        <td><a href="{%url 'learningmaterials' course.id %}" class="btn btn-sm btn-info">Add Learningmaterials</a></td>
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+
+  <!-- Basic Modal -->
+  <button type="button" class="btn btn-primary" id="addtopic" data-bs-toggle="modal" data-bs-target="#basicModal">
+    Add Course
+  </button>
+
+
+  <form method="POST">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Course</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body">
+           
+             
+              <div id="Forms">
+                <label for="{{name.id_for_label}}">Name</label><br>{{name}}<br>
+              </div><br><br><br>
+              <div id="FormsP">
+                <label for="{{description.id_for_label}}">Description</label><br>{{description}}<br>
+              </div><br><br><br>
+
+
+              <div id="FormsPL">
+                <label for="{{level.id_for_label}}">Level</label><br>{{level}}<br>
+              </div><br><br><br>
+             
+
+             
+     
+          <div class="modal-footer">
+            <button value="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+  {%if zero_results %}
+  <h1 style="text-align: center">No Results Found</h1>
+  {%endif%} <br />
+{%endblock main_content%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

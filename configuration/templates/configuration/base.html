@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}Dashboard - TELEACADEMY{% endblock title %}</title>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon" />
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Nunito|Poppins" rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/quill/quill.snow.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/simple-datatables/style.css' %}" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% block header %}
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="{% static 'img/logo.png' %}" alt="" />
+          <span class="d-none d-lg-block">TELEACADEMY</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+    </header>
+    {% endblock header %}
+    <!-- End Header -->
+
+    {% block sidebar %}
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        {%if not request.user.is_superuser and not request.user.role == 'TEACHER'%}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'configuration' %}">
+            <i class="bi bi-grid"></i>
+            <span class="text-primary">Dashboard</span>
+          </a>
+        </li>
+        {%endif%}
+        {%if request.user.is_superuser%}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_dashboard' %}">
+            <i class="bi bi-grid"></i>
+            <span class="text-primary">Dashboard</span>
+          </a>
+        </li>
+        {%endif%}
+        {%if request.user.role == 'TEACHER'%}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'teacher_dashboard' %}">
+            <i class="bi bi-grid"></i>
+            <span class="text-primary">Dashboard</span>
+          </a>
+        </li>
+        {%endif%}
+        <ul class="nav">
+          <li class="nav-item" style="background-color: #f8f9fa; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); width: 100%;">
+            <a class="nav-link active d-flex align-items-center justify-content-start" href="{% url 'profile' %}" style="padding: 2px 10px;">
+              <i class="bi bi-person fs-3"></i>
+              <span class="text-primary">My Profile</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Student Section -->
+        {% if request.user.role == "STUDENT" %}
+        <li class="nav-item">
+          <a class="nav-link collapsed bg-light" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-book"></i><span class="text-primary">Student</span><i class="bi bi-chevron-right ms-auto"></i>
+          </a>
+          <ul id="Courses-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'all_courses' %}">
+                <i class="bi bi-circle"></i><span class="text-info">Available Courses</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'registered' %}">
+                <i class="bi bi-circle"></i><span class="text-info">My Courses</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+
+        <!-- Teacher Section -->
+        {% if request.user.role == "TEACHER" %}
+        <li class="nav-item">
+          <a class="nav-link collapsed bg-light" data-bs-target="#tutor-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-pencil"></i><span class="text-primary">Tutor</span><i class="bi bi-chevron-right ms-auto"></i>
+          </a>
+          <ul id="tutor-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'course' %}">
+                <i class="bi bi-circle"></i><span class="text-info">Courses</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'add_quiz' %}">
+                <i class="bi bi-circle"></i><span class="text-info">Assessments</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+
+        <!-- Superuser Section -->
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+          <a class="nav-link collapsed bg-light" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-gear"></i><span class="text-primary">Configurations</span><i class="bi bi-chevron-right ms-auto"></i>
+          </a>
+          <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'gender' %}">
+                <i class="bi bi-circle"></i><span class="text-primary">Gender</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'level' %}">
+                <i class="bi bi-circle"></i><span class="text-primary">Level</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'payment' %}">
+                <i class="bi bi-circle"></i><span class="text-primary">Payment</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+
+        <!-- Log Out Section -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center justify-content-start" href="{% url 'logout' %}" style="padding: 2px 10px;">
+            <i class="bi bi-box-arrow-right fs-3"></i>
+            <span class="text-primary">Log Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar -->
+    {% endblock sidebar %}
+
+    <main id="main" class="main">
+      {% block main_content %}
+      <!-- Main content here -->
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'configuration' %}">Home</a>
+          </li>
+    
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card bg-success" style="height: 180px;">
+              <div class="card-body">
+                <h5 class="card-title text-light">Available Courses</h5>
+                <div class="d-flex justify-content-center align-items-center">
+                  <h1 class="display-1 fw-bolder text-dark">{{ total_available_courses }}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card bg-primary" style="height: 180px;">
+              <div class="card-body">
+                <h5 class="card-title text-light">Courses Involved</h5>
+                <div class="d-flex justify-content-center align-items-center">
+                  <h1 class="display-1 fw-bolder text-dark">{{ total_courses_registered }}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<div class="row">
+          <!-- <div class="col-lg-6">
+  
+            <div class="card bg-secondary" style="height: 180px;">
+              <div class="card-body">
+                <h5 class="card-title text-light">Progress</h5>
+    
+                <div class="d-flex justify-content-center align-items-center">
+                  <h1 class="display-2 fw-bolder text-dark">{{progress}}%</h1>
+                </div>
+              </div>
+            </div>
+  
+          </div> -->
+          <div class="col-lg-6">
+  
+            <a href="{% url 'discussion_courses' %}">
+              <div class="card bg-secondary" style="height: 180px;">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Discussion Room</h5>   
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="{%static 'img/discussion.png'%}" alt="" width="90px" height="70px" />
+              </div>
+            </div>
+              </div>
+              </a>
+  
+          </div>
+  
+          <div class="col-lg-6">
+            <a href="{% url 'quizes' %}">
+            <div class="card bg-info" style="height: 180px;">
+                  <div class="card-body">
+                    <h5 class="card-title text-light">Quizes</h5>   
+                <div class="d-flex justify-content-center align-items-center">
+                  <img src="{%static 'img/quiz.png'%}" alt="" width="90px" height="70px" />
+                </div>
+              </div>
+            </div>
+          </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+  
+            <a href="{% url 'quiz_results' %}">
+              <div class="card bg-primary" style="height: 180px;">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Quiz Results</h5>   
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="{%static 'img/result.jpg'%}" alt="" width="90px" height="70px" />
+              </div>
+            </div>
+              </div>
+              </a>
+  
+          </div>
+  
+   
+        </div>
+      </section>
+      {% endblock main_content %}
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TELEACADEMY</span></strong
+        >. All Rights Reserved
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{%static 'vendor/apexcharts/apexcharts.min.js'%}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{%static 'vendor/chart.js/chart.umd.js'%}"></script>
+    <script src="{%static 'vendor/echarts/echarts.min.js'%}"></script>
+    <script src="{%static 'vendor/quill/quill.min.js'%}"></script>
+    <script src="{%static 'vendor/simple-datatables/simple-datatables.js'%}"></script>
+    <script src="{%static 'vendor/tinymce/tinymce.min.js'%}"></script>
+    <script src="{%static 'vendor/php-email-form/validate.js'%}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{%static 'js/main.js'%}"></script>
+
+    <script>
+      /*
+      document.addEventListener("DOMContentLoaded", function () {
+          // Add "show" class to the configuration submenu
+          document.getElementById("components-nav").classList.add("show");
+      });
+      */
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

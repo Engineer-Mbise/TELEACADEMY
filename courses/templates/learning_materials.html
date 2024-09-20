@@ -1,0 +1,99 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+
+{%block main_content%}
+<div class="pagetitle">
+    <!-- Basic Modal -->
+    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+      Add Learning Material
+     </button>
+  <h1>Learning Material</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Learning Material</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">COURSE NAME</th>
+        <th scope="col">VIDEO</th>
+        <th scope="col">AUDIO</th>
+        <th scope="col">NOTES</th>
+        <th scope="col">ACTION</th>
+    
+        
+        
+      
+      </tr>
+    </thead>
+    <tbody>
+      {% for learningmaterial in learningMaterials %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{learningmaterial.course.name}}</td>
+        <td> <a href="/media/{{learningmaterial.video}}"><i class="align-middle" >PLAY&nbsp<i class="bi bi-play fs-2 text-primary align-middle"></i></i></a> </td>
+        <td> <a href="/media/{{learningmaterial.audio}}"><i class="align-middle" >PLAY&nbsp<i class="bi bi-play fs-2 text-primary align-middle"></i></i></a> </td>
+        <td><a href="/media/{{learningmaterial.notes}}"><i class="align-middle">DOWNLOAD&nbsp<i class="bi bi-download fs-2 text-primary align-middle"></i></i></a></td>
+        <td><a href="{%url 'delete_learning_material' learningmaterial.id %}" class="btn btn-sm text-light btn-primary">Delete Learning Material</a></td>
+       
+        
+        
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+
+
+
+
+  
+   
+  <form method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Learning Material</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body">
+           
+             
+          
+                
+              <label for="{{course.id_for_label}}">Course Name:</label><br>{{course}}<br>
+              <label for="{{video.id_for_label}}">Video:</label><br>{{video}}<br>
+              <label for="{{audio.id_for_label}}">Audio:</label><br>{{audio}}<br>
+              <label for="{{notes.id_for_label}}">Notes:</label><br>{{notes}}<br>
+          
+
+             
+
+             
+            
+       
+        
+        
+          
+          <div class="modal-footer">
+            <button value="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+{%endblock main_content%}

@@ -1,0 +1,50 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  {%block title%}My Profile{%endblock title%}
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">My Profile</li>
+    </ol>
+  </nav>
+</div>
+<div
+  style="
+    position: absolute;
+    right: 180px;
+    top: 92px;
+    background-color: lightsteelblue;
+  "
+>
+  <a href="{% url 'change_password'%}" class="btn btn-sm bg-primary text-light"
+    >Change Password</a
+  >
+</div>
+<div>
+  <a
+    href="{% url 'my_profile'%}"
+    class="btn btn-sm bg-primary text-light"
+    id="addlevel"
+    >Update Profile</a
+  >
+</div>
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="pt-4 pb-2">
+      <h5 class="card-title text-center pb-0 fs-4">Below are your details</h5>
+    </div>
+
+    {%for detail in details%} <br />
+    FIRST NAME:&nbsp{{detail.first_name}}<br /><br />
+    MIDDLE NAME:&nbsp{{detail.middle_name}}<br /><br />
+    LAST NAME:&nbsp{{detail.last_name}}<br /><br />
+    GENDER:&nbsp{{detail.gender}} {%endfor%}
+  </div>
+</div>
+
+{%endblock main_content%}

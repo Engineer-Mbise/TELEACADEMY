@@ -1,0 +1,98 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+
+
+
+
+
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Gender</h1>
+      <!-- Basic Modal -->
+      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+        Add Gender
+       </button>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Gender</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ACRONYM</th>
+        <th scope="col">DESCRIPTION</th>
+        
+       
+      </tr>
+    </thead>
+    <tbody>
+      {% for gender in genders %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{gender.acronym}}</td>
+        <td>{{gender.description}}</td>
+        
+        
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+
+    <form method="POST">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Gender</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body">
+           
+             
+              <div id="Forms">
+                
+                <label for="{{acronym.id_for_label}}">Acronym</label><br>{{acronym}}<br>
+              </div><br><br><br>
+              <div id="Forms">
+                <label for="{{description.id_for_label}}">Description</label><br>{{description}}<br>
+              </div><br><br><br>
+
+             
+          <div class="modal-footer">
+            <button value="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+
+{%endblock main_content%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

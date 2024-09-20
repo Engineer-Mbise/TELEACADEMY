@@ -1,0 +1,102 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block searchbar%}
+<div class="search-bar">
+  <form
+    class="search-form d-flex align-items-center"
+    method="POST"
+    action="{% url 'search_selected_courses' %}"
+  >
+    {% csrf_token %}
+    <input
+      type="text"
+      name="query"
+      class="form-control me-2"
+      placeholder="Search Course"
+      title="Enter search keyword"
+      required
+    />
+    <button type="submit" class="btn btn-primary" title="Search">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+</div>
+{%endblock searchbar%} {%block main_content%}
+
+<div class="pagetitle">
+  <h1>My Courses</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">My Courses</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">COURSE NAME</th>
+        <th scope="col">LEVEL</th>
+        <th scope="col">DESCRIPTION</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for registered in registered %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{registered.course.name}}</td>
+        <td>{{registered.course.level}}</td>
+        <td>{{registered.course.description}}</td>
+        <td>
+          <div class="d-flex flex-wrap gap-2">
+            <a
+              href="{% url 'materials' registered.course.id %}"
+              class="btn btn-sm bg-primary text-light"
+            >
+              View Learning Materials
+            </a>
+            <a
+              href="{% url 'cancel_course_selection' registered.id %}"
+              class="btn btn-sm bg-danger text-light"
+            >
+              Delete Course
+            </a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {%if registered.has_previous%}
+      <li class="page-item">
+        <a class="page-link" href="?page={{registered.previous_page_number}}"
+          >Previous</a
+        >
+      </li>
+      {%endif%}
+      <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+      <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+      <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+      {%if registered.has_next%}
+      <li class="page-item">
+        <a class="page-link" href="?page={{registered.next_page_numbber}}"
+          >Next</a
+        >
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
+{%endblock main_content%}

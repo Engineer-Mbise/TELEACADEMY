@@ -1,0 +1,112 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  {%block title%}Admin Pannel{%endblock title%}
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'admin_dashboard' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Admin Pannel</li>
+    </ol>
+  </nav>
+</div>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card bg-success" style="height: 180px">
+        <div class="card-body">
+          <h5 class="card-title text-light">Instructors</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <h1 class="display-1 fw-bolder text-dark">{{instructors}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card bg-primary" style="height: 180px">
+        <div class="card-body">
+          <h5 class="card-title text-light">Students</h5>
+          <div class="d-flex justify-content-center align-items-center">
+
+            <h1 class="display-1 fw-bolder text-dark">{{students}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- <div class="col-lg-6">
+
+        <div class="card bg-secondary" style="height: 180px;">
+          <div class="card-body">
+            <h5 class="card-title text-light">Progress</h5>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <h1 class="display-2 fw-bolder text-dark">{{progress}}%</h1>
+            </div>
+          </div>
+        </div>
+
+      </div> -->
+    <div class="col-lg-6">
+      <a href="{% url 'discussion_courses' %}">
+        <div class="card bg-secondary" style="height: 180px">
+          <div class="card-body">
+            <h5 class="card-title text-light">Discussion Room</h5>
+            <div class="d-flex justify-content-center align-items-center">
+              <img
+                src="{%static 'img/discussion.png'%}"
+                alt=""
+                width="90px"
+                height="70px"
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6">
+   
+        <div class="card bg-info" style="height: 180px">
+          <div class="card-body">
+            <h5 class="card-title text-light">Courses</h5>
+            <div class="d-flex justify-content-center align-items-center">
+              <h1 class="display-1 fw-bolder text-dark">{{courses}}</h1>
+            </div>
+          </div>
+        </div>
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+
+        <div class="card bg-primary" style="height: 180px">
+          <div class="card-body">
+            <h5 class="card-title text-light">Quizes</h5>
+            <div class="d-flex justify-content-center align-items-center">
+              <h1 class="display-1 fw-bolder text-dark">{{quizes}}</h1>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6">
+      <div class="card bg-success" style="height: 180px">
+        <div class="card-body">
+          <h5 class="card-title text-light">Materials</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <h1 class="display-1 fw-bolder text-dark">{{materials}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%endblock main_content%}

@@ -1,0 +1,56 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Quiz Results</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Quiz Results</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">QUIZ</th>
+        <th scope="col">SCORE</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{result.quiz.title}}</td>
+        <td>{{result.score}}</td>
+        <td>
+          {% if result.score < 70 and not result.retaken %}
+          <a
+            href="{%url 'retake_quiz' result.quiz.id%}"
+            class="btn btn-sm text-light btn-primary"
+            >Retake Quiz</a
+          >
+
+          {%else%}
+          <a
+            href="{%url 'quiz_answers' result.quiz.id%}"
+            class="btn btn-sm text-light btn-primary"
+            >View Answers</a
+          >
+          {%endif%}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%endblock main_content%}

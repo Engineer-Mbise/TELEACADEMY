@@ -1,0 +1,64 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Learning Material</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Learning Material</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">COURSE NAME</th>
+        <th scope="col">VIDEO</th>
+        <th scope="col">AUDIO</th>
+        <th scope="col">NOTES</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for learningmaterial in materials %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{learningmaterial.course}}</td>
+        <td>
+          <a href="/media/{{learningmaterial.video}}"
+            ><i class="align-middle"
+              >PLAY&nbsp<i
+                class="bi bi-play fs-2 text-primary align-middle"
+              ></i></i
+          ></a>
+        </td>
+        <td>
+          <a href="/media/{{learningmaterial.audio}}"
+            ><i class="align-middle"
+              >PLAY&nbsp<i
+                class="bi bi-play fs-2 text-primary align-middle"
+              ></i></i
+          ></a>
+        </td>
+        <td>
+          <a href="/media/{{learningmaterial.notes}}"
+            ><i class="align-middle"
+              >DOWNLOAD&nbsp<i
+                class="bi bi-download fs-2 text-primary align-middle"
+              ></i></i
+          ></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%endblock main_content%}

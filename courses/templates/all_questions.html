@@ -1,0 +1,51 @@
+{%extends 'configuration/base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Questions</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">Questions</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <!-- Active Table -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">QUIZ</th>
+        <th scope="col">QUESTION STATEMENT</th>
+        <th scope="col">OPTION1</th>
+        <th scope="col">OPTION2</th>
+        <th scope="col">OPTION3</th>
+        <th scope="col">OPTION4</th>
+        <th scope="col">CORRECT ANSWER</th>
+        <th scope="col">TIME TO ANSWER IN SECONDS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in questions %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{question.quiz.title}}</td>
+        <td>{{question.statement}}</td>
+        <td>{{question.option1}}</td>
+        <td>{{question.option2}}</td>
+        <td>{{question.option3}}</td>
+        <td>{{question.option4}}</td>
+        <td>{{question.correct_answer}}</td>
+        <td>{{question.time_to_answer_in_seconds}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+{%endblock main_content%}

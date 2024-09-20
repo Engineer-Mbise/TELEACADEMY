@@ -1,0 +1,93 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>Level</h1>
+    <!-- Basic Modal -->
+    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+      Add Level
+     </button>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      
+      <li class="breadcrumb-item active">Level</li>
+    </ol>
+  </nav>
+</div>
+  <div class="container">
+   <!-- Active Table -->
+  
+
+ 
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">NAME</th>
+        
+        
+      
+      </tr>
+    </thead>
+    <tbody>
+      {% for level in levels %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{level.name}}</td>
+        
+        
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+  </div>
+
+   
+  <form method="POST">
+    <div class="modal fade" id="basicModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Level</h5>
+
+          </div>
+          {% csrf_token %} 
+          <div class="modal-body">
+           
+             
+              <div id="Forms">
+                
+                <label for="{{name.id_for_label}}">Name</label><br>{{name}}<br>
+              </div><br><br><br>
+             
+
+             
+            
+       
+        
+        
+          
+          <div class="modal-footer">
+            <button value="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Basic Modal-->
+  </form>
+{%endblock main_content%}
+
+
+
+
+
+
+
+
+
+
+
+
+

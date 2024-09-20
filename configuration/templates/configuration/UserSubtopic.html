@@ -1,0 +1,75 @@
+{%extends './base.html'%}
+<!--{%load static%}-->
+{%block main_content%}
+<div class="pagetitle">
+  <h1>All Courses</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'configuration' %}">Home</a>
+      </li>
+
+      <li class="breadcrumb-item active">All Courses</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
+  <table class="table">
+    {% comment %} {% if messages %}
+
+    <div style="background-color: red; color: white">
+      <h2>already registered</h2>
+    </div>
+    {% endif %} {% endcomment %}
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">COURSE NAME</th>
+        <th scope="col">LEVEL</th>
+        <th scope="col">DESCRIPTION</th>
+      
+       
+        <th scope="col">ACTION</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in UserSubtopics %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{course.name}}</td>
+        <td>{{course.level}}</td>
+        <td>{{course.description}}</td>
+     
+ 
+        <td>
+          <a
+            href="{% url 'Selected' course.id %}"
+            class="btn btn-sm bg-info text-dark"
+            >Take Course</a
+          >
+        </td>
+     
+        <!-- {% comment %}
+        <td>
+          <form action="#" method="post">
+            {% csrf_token %}
+            <input
+              type="hidden"
+              name="subtopic_id"
+              value="{{usersubtopic.id}}"
+            />
+            <input type="hidden" name="user_id" value="{{request.user.id}}" />
+            <button type="submit">Take Course!</button>
+          </form>
+        </td>
+        {% endcomment %} -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- End Active Table -->
+</div>
+
+{%endblock main_content%}
