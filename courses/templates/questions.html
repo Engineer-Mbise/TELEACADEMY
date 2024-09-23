@@ -4,6 +4,37 @@
 {%block main_content%}
 <div class="pagetitle">
   <h1>Questions</h1>
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {% if messages %}
+  {% for msg in messages %}
+    {% if 'question added' in msg.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+         {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% if messages %}
+{% for msg in messages %}
+  {% if 'question deleted' in msg.tags %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+       {{ msg }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+{% endfor %}
+{% endif %}
     <!-- Basic Modal -->
     <button type="button" class="btn btn-primary text-light float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
       Add Question

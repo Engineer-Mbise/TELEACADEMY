@@ -86,7 +86,7 @@ def registration(request):
             return redirect("token_verification")
 
         else:
-            messages.error(request, "Registration Failed!",extra_tags="registration error message")
+            messages.error(request, "Registration failed.Also remember to enter a valid phone number",extra_tags="registration error message")
     else:
         form = UserForm()
     return render(
@@ -205,10 +205,10 @@ def change_password(request):
         if form.is_valid():
             user=form.save()
             update_session_auth_hash(request,user)
-            messages.success(request,"Password changed successfully")
+            messages.success(request,"Password was changed successfully,you may now log in with the new password!!",extra_tags="change_password_success")
             return redirect("my_login_view")
         else:
-            messages.error(request,"Please correct the error below")
+            messages.error(request,"Your old password must be correct, and the new password entries must match",extra_tags="password_change_error")
             
     else:
         form=PasswordChangeForm(request.user)

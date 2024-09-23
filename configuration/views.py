@@ -86,7 +86,7 @@ def level(request):
         levelform = LevelForm(request.POST)
         if levelform.is_valid():
             levelform.save()
-            messages.success(request, "Done!!!")
+            messages.success(request, "A level was added successfully!!",extra_tags="level_message")
 
     else:
         levelform = LevelForm()
@@ -95,6 +95,20 @@ def level(request):
         "configuration/level.html",
         {"name": levelform["name"], "levels": levels},
     )
+    
+    
+    
+def delete_level(request,pk):
+    level_to_delete=Level.objects.get(id=pk)
+    level_to_delete.delete()
+    return redirect('level')
+
+
+
+def delete_gender(request,pk):
+    gender_to_delete=Gender.objects.get(id=pk)
+    gender_to_delete.delete()
+    return redirect('gender')
 
 
 
@@ -151,7 +165,7 @@ def gender(request):
         genderform = GenderForm(request.POST)
         if genderform.is_valid():
             genderform.save()
-            messages.success(request, "Done!!")
+            messages.success(request, "A gender was added successfully",extra_tags="gender_added_message")
             return redirect("gender")
 
     else:
@@ -176,6 +190,7 @@ def my_profile(request):
       
         if form.is_valid():
             form.save()
+            messages.info(request,"Profile updated successfully! Your changes have been saved",extra_tags="profile_edited_message")
             return redirect("profile")
     else:
         form=EditForm(instance=request.user)

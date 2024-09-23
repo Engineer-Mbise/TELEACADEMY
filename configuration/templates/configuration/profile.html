@@ -6,13 +6,20 @@
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
+        {%if request.user.role == 'TEACHER'%}
+        <a href="{% url 'teacher_dashboard' %}">Home</a>
+        {%elif request.user.role == 'STUDENT'%}
         <a href="{% url 'configuration' %}">Home</a>
+        {%else%}
+        <a href="{% url 'admin_dashboard' %}">Home</a>
+        {% endif %}
       </li>
 
       <li class="breadcrumb-item active">My Profile</li>
     </ol>
   </nav>
 </div>
+
 <div
   style="
     position: absolute;
@@ -33,6 +40,35 @@
     >Update Profile</a
   >
 </div>
+<script>
+  setTimeout(function () {
+    messageID = document.getElementById("message");
+    if (messageID) {
+      messageID.style.display = "none";
+    }
+  }, 6000);
+</script>
+{%if messages%}
+{%for msg in messages%}
+{%if 'profile_edited_message' in msg.tags%}
+
+<div
+  class="alert alert-success alert-dismissible fade show"
+  role="alert"
+  id="message"
+>
+   {{msg}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+
+{%endif%}
+{%endfor%}
+{%endif%}
 <div class="card mb-3">
   <div class="card-body">
     <div class="pt-4 pb-2">

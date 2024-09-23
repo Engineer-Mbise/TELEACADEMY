@@ -7,6 +7,37 @@
     Add Quiz
   </button>
   <h1>Quizes</h1>
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {% if messages %}
+  {% for msg in messages %}
+    {% if 'quiz added' in msg.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+         {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% if messages %}
+{% for msg in messages %}
+  {% if 'quiz deleted' in msg.tags %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+       {{ msg }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+{% endfor %}
+{% endif %}
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>

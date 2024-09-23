@@ -83,9 +83,8 @@
                     if (messageID) {
                       messageID.style.display = "none";
                     }
-                  }, 3000);
+                  }, 6000);
                 </script>
-
                 {%if messages%}<br />
                 {%for msg in messages%}<br />
                 {%if 'login error' in msg.tags%}<br />
@@ -96,6 +95,28 @@
                   id="message"
                 >
                   <strong>Sorry!</strong> {{msg}}
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                </div>
+
+                {%endif%}<br />
+                {%endfor%}<br />
+                {%endif%}<br />
+
+                {%if messages%}<br />
+                {%for msg in messages%}<br />
+                {%if 'change_password_success' in msg.tags%}<br />
+
+                <div
+                  class="alert alert-success alert-dismissible fade show"
+                  role="alert"
+                  id="message"
+                >
+                  {{msg}}
                   <button
                     type="button"
                     class="btn-close"

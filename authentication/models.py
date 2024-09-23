@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         TEACHER = "TEACHER", "Teacher"
         STUDENT = "STUDENT", "Student"
     phone_number = PhoneNumberField()
-    email = models.EmailField(blank=False, unique=True)
+    email = models.EmailField(unique=True)
     # device_id = models.CharField(max_length=100, blank=False)
     password = models.CharField(max_length=200)
     first_name = models.CharField(max_length=300, null=True,blank=True)

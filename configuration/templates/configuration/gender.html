@@ -1,20 +1,44 @@
 {%extends './base.html'%}
 <!--{%load static%}-->
-
-
-
-
-
 {%block main_content%}
 <div class="pagetitle">
   <h1>Gender</h1>
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {%if messages%}
+  {%for msg in messages%}
+  {%if 'gender_added_message' in msg.tags%}
+
+  <div
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+    id="message"
+  >
+     {{msg}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {%endif%}
+  {%endfor%}
+  {%endif%}
       <!-- Basic Modal -->
       <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
         Add Gender
        </button>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'admin_dashboard' %}">Home</a></li>
       
       <li class="breadcrumb-item active">Gender</li>
     </ol>
@@ -31,6 +55,7 @@
         <th scope="col">#</th>
         <th scope="col">ACRONYM</th>
         <th scope="col">DESCRIPTION</th>
+        <th scope="col">ACTION</th>
         
        
       </tr>
@@ -41,6 +66,8 @@
         <th scope="row">{{forloop.counter}}</th>
         <td>{{gender.acronym}}</td>
         <td>{{gender.description}}</td>
+        <td><a href="{%url 'delete_gender' gender.id %}" class="btn btn-sm text-light btn-danger">Delete Gender</a></td>
+        
         
         
       </tr>
@@ -73,7 +100,7 @@
 
              
           <div class="modal-footer">
-            <button value="submit">Submit</button>
+            <button value="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </div>

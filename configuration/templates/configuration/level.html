@@ -2,6 +2,35 @@
 <!--{%load static%}-->
 {%block main_content%}
 <div class="pagetitle">
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {%if messages%}
+  {%for msg in messages%}
+  {%if 'level_message' in msg.tags%}
+
+  <div
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+    id="message"
+  >
+     {{msg}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {%endif%}
+  {%endfor%}
+  {%endif%}
   <h1>Level</h1>
     <!-- Basic Modal -->
     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
@@ -9,7 +38,7 @@
      </button>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'admin_dashboard' %}">Home</a></li>
       
       <li class="breadcrumb-item active">Level</li>
     </ol>
@@ -25,6 +54,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">NAME</th>
+        <th scope="col">ACTION</th>
         
         
       
@@ -35,6 +65,7 @@
       <tr>
         <th scope="row">{{forloop.counter}}</th>
         <td>{{level.name}}</td>
+        <td><a href="{%url 'delete_level' level.id %}" class="btn btn-sm text-light btn-danger">Delete Level</a></td>
         
         
       </tr>

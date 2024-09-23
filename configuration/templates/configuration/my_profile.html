@@ -6,7 +6,13 @@
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
+        {%if request.user.role == 'TEACHER'%}
+        <a href="{% url 'teacher_dashboard' %}">Home</a>
+        {%elif request.user.role == 'STUDENT'%}
         <a href="{% url 'configuration' %}">Home</a>
+        {%else%}
+        <a href="{% url 'admin_dashboard' %}">Home</a>
+        {% endif %}
       </li>
 
       <li class="breadcrumb-item active">My Profile</li>

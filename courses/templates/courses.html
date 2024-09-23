@@ -8,6 +8,49 @@
       Add Course
     </button>
   <h1>Courses</h1>
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {% if messages %}
+  {% for msg in messages %}
+    {% if 'course added' in msg.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+         {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% if messages %}
+{% for msg in messages %}
+  {% if 'learning material added' in msg.tags %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+       {{ msg }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+
+{% if messages %}
+{% for msg in messages %}
+  {% if 'course deleted' in msg.tags %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+       {{ msg }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+{% endfor %}
+{% endif %}
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
@@ -39,7 +82,7 @@
         <td>{{course.name}}</td>
         <td>{{course.description}}</td>
         <td>{{course.level}}</td>
-        <td><a href="{%url 'learningmaterials' course.id %}" class="btn btn-sm text-light btn-primary">Add Learningmaterials</a>
+        <td><a href="{%url 'learningmaterials' course.id %}" class="btn btn-sm text-light btn-primary">Learningmaterials</a>
         <a href="{%url 'delete_course' course.id %}" class="btn btn-sm text-light btn-danger">Delete Course</a></td>
       </tr>
       {% endfor %}

@@ -22,6 +22,7 @@ def add_course(request):
             instance=courseform.save(commit=False)
             instance.instructor=request.user
             instance.save()
+            messages.success(request,"Course added successfully!",extra_tags="course added")
     else:
         courseform = CourseForm()
 
@@ -53,6 +54,7 @@ def add_quiz(request):
             course=instance.course
             my_courses=Registered.objects.filter(course=course)
             instance.save()
+            messages.success(request,"Quiz added successfully!",extra_tags="quiz added")
             for my_course in my_courses:
                student=my_course.student
                send_mail("New Quiz","A new quiz has been added to the course "+course.name+" that you are enrolled in.","teleacademy8@gmail.com",[student],fail_silently=False)     
@@ -82,6 +84,7 @@ def add_question(request,pk):
         form = QuestionForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,"Question added successfully!",extra_tags="question added")
        
           
 
@@ -134,6 +137,7 @@ def learningmaterials(request, pk):
         form = LearningMaterialForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request,"Learning material added successfully!",extra_tags="learning material added")
             return redirect("course")
           
 
@@ -162,13 +166,14 @@ def selected_courses(request,pk):
             course=courses,
             student=request.user,
         )
+        messages.success(request,"Course selected successfully!",extra_tags="course selected")
         return redirect("registered")
         
             
             
         
     else:
-            
+         
             return redirect("all_courses")
     
 
@@ -185,12 +190,14 @@ def render_selected(request):
 def cancel_course_selection(request, pk):
     deleted = Registered.objects.filter(id=pk)
     deleted.delete()
+    messages.success(request,"Course selection canceled successfully!!",extra_tags="cancel course")
     return redirect("registered")
 
 @login_required
 def delete_course(request,pk):
     course_to_delete=Course.objects.filter(id=pk)
     course_to_delete.delete()
+    messages.success(request,"Course deleted successfully!",extra_tags="course deleted")
     return redirect("course")
 
    
@@ -199,6 +206,7 @@ def delete_learning_material(request,pk):
     material_to_delete=LearningMaterial.objects.get(id=pk)
     course_id=material_to_delete.course.id
     material_to_delete.delete()
+    messages.success(request,"Learning material deleted successfully!",extra_tags="learning material deleted")
     return redirect("learningmaterials",pk=course_id)
 
     
@@ -206,6 +214,7 @@ def delete_learning_material(request,pk):
 def delete_quiz(request,pk):
     quiz_to_delete=Quiz.objects.get(id=pk)
     quiz_to_delete.delete()
+    messages.success(request,"Quiz deleted successfully!",extra_tags="quiz deleted")
     return redirect("add_quiz")
     
   
@@ -215,6 +224,7 @@ def delete_question(request,pk):
     question_to_delete=Question.objects.get(id=pk)
     quiz_id=question_to_delete.quiz.id
     question_to_delete.delete()
+    messages.success(request,"Question deleted successfully!",extra_tags="question deleted")
     return redirect("add_question",pk=quiz_id)
 
 

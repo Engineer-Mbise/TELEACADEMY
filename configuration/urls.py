@@ -11,7 +11,9 @@ urlpatterns = [
     path("progress/<int:pk>/", views.progress, name="progress"),
     path("level", views.level, name="level"),
     path("payment", views.payment, name="payment"),
-     path("update_profile",views.my_profile,name="my_profile"),
+    path("update_profile",views.my_profile,name="my_profile"),
     path("my_profile", views.profile, name="profile"),
+    path("delete_level/<int:pk>/",views.delete_level,name="delete_level"),
+    path("delete_gender/<int:pk>/",views.delete_gender,name="delete_gender"),
   
 ]

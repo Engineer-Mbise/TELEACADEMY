@@ -8,6 +8,24 @@
       Add Learning Material
      </button>
   <h1>Learning Material</h1>
+  <script>
+    setTimeout(function () {
+      messageID = document.getElementById("message");
+      if (messageID) {
+        messageID.style.display = "none";
+      }
+    }, 6000);
+  </script>
+  {% if messages %}
+  {% for msg in messages %}
+    {% if 'learning material deleted' in msg.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
+         {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'configuration' %}">Home</a></li>
@@ -44,7 +62,7 @@
         <td> <a href="/media/{{learningmaterial.video}}"><i class="align-middle" >PLAY&nbsp<i class="bi bi-play fs-2 text-primary align-middle"></i></i></a> </td>
         <td> <a href="/media/{{learningmaterial.audio}}"><i class="align-middle" >PLAY&nbsp<i class="bi bi-play fs-2 text-primary align-middle"></i></i></a> </td>
         <td><a href="/media/{{learningmaterial.notes}}"><i class="align-middle">DOWNLOAD&nbsp<i class="bi bi-download fs-2 text-primary align-middle"></i></i></a></td>
-        <td><a href="{%url 'delete_learning_material' learningmaterial.id %}" class="btn btn-sm text-light btn-primary">Delete Learning Material</a></td>
+        <td><a href="{%url 'delete_learning_material' learningmaterial.id %}" class="btn btn-sm text-light btn-danger">Delete Learning Material</a></td>
        
         
         
@@ -90,7 +108,7 @@
         
           
           <div class="modal-footer">
-            <button value="submit">Submit</button>
+            <button value="submit" class="btn btn-primary text-light">Submit</button>
           </div>
         </div>
       </div>
