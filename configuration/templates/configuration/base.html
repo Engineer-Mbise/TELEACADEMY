@@ -69,23 +69,23 @@
           </a>
         </li>
         {%endif%}
-        <ul class="nav">
-          <li class="nav-item" style="background-color: #f8f9fa; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); width: 100%;">
+       
+          <li class="nav-item" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); width: 100%;">
             <a class="nav-link active d-flex align-items-center justify-content-start" href="{% url 'profile' %}" style="padding: 2px 10px;">
               <i class="bi bi-person fs-3"></i>
               <span class="text-primary">My Profile</span>
             </a>
           </li>
-        </ul>
+       
 
         <!-- Student Section -->
         {% if request.user.role == "STUDENT" %}
-        <li class="nav-item">
-          <a class="nav-link collapsed bg-light" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
+        <li class="nav-item bg-light">
+          <a class="nav-link collapsed" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-book"></i><span class="text-primary">Student</span><i class="bi bi-chevron-right ms-auto"></i>
           </a>
           <ul id="Courses-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
+            <li class="nav-item">
               <a href="{% url 'all_courses' %}">
                 <i class="bi bi-circle"></i><span class="text-info">Available Courses</span>
               </a>
@@ -101,8 +101,8 @@
 
         <!-- Teacher Section -->
         {% if request.user.role == "TEACHER" %}
-        <li class="nav-item">
-          <a class="nav-link collapsed bg-light" data-bs-target="#tutor-nav" data-bs-toggle="collapse" href="#">
+        <li class="nav-item bg-light">
+          <a class="nav-link collapsed" data-bs-target="#tutor-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-pencil"></i><span class="text-primary">Tutor</span><i class="bi bi-chevron-right ms-auto"></i>
           </a>
           <ul id="tutor-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -123,7 +123,7 @@
         <!-- Superuser Section -->
         {% if request.user.is_superuser %}
         <li class="nav-item">
-          <a class="nav-link collapsed bg-light" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-gear"></i><span class="text-primary">Configurations</span><i class="bi bi-chevron-right ms-auto"></i>
           </a>
           <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">

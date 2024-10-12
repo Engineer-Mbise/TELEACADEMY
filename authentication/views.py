@@ -40,14 +40,14 @@ def registration(request):
                         "phone_number": form["phone_number"],
                         "email": form["email"],
                         "password": form["password"],
-                        "gender": form["gender"],
+                        # "gender": form["gender"],
                     }
                 )
             user = form.save(commit=False)
             user_details=form.cleaned_data
             user_details["phone_number"] = str(user_details["phone_number"])
-            request.session["gender_id"]=user_details["gender"].id
-            del user_details["gender"]
+            # request.session["gender_id"]=user_details["gender"].id
+            # del user_details["gender"]
             request.session["user_details"]=user_details
             gmail=user.email
             token=pyotp.random_base32()
@@ -96,7 +96,7 @@ def registration(request):
             "phone_number": form["phone_number"],
             "email": form["email"],
             "password": form["password"],
-            "gender": form["gender"],
+            # "gender": form["gender"],
             # "is_student": form["is_student"],
             # "is_teacher": form["is_student"],
             # "device_id": form["device_id"],
@@ -118,11 +118,11 @@ def token_verification(request):
             user=User()
             user.password = make_password(request.session.get("user_details")["password"])
             user.email=request.session.get("user_details")["email"]
-            user.gender=Gender.objects.get(id=request.session.get("gender_id"))
+            # user.gender=Gender.objects.get(id=request.session.get("gender_id"))
             user.phone_number=request.session.get("user_details")["phone_number"]
             user.role = "STUDENT"
             user.save()
-            del request.session["gender_id"]
+            # del request.session["gender_id"]
             del request.session["user_details"]
             del request.session["original_token"]
             del request.session["generated_at"]

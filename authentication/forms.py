@@ -22,6 +22,6 @@ class UserForm(ModelForm):
             "email":forms.EmailInput(attrs={"placeholder":"Enter Email","class":"form-control"}),
             "first_name":forms.TextInput(attrs={"placeholder":"Enter First Name(Optional)","class":"form-control"}),
             "phone_number":forms.TextInput(attrs={"placeholder":"Enter Phone Number","class":"form-control"}),
-            "gender":forms.Select(attrs={"style":"width:100%; height:35px;"}),
+            # "gender":forms.Select(attrs={"style":"width:100%; height:35px;"}),
             
         }
